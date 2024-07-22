@@ -2,10 +2,14 @@
   <div class="content">
     <button @click="openModal" class="btn">{{ btnText }}</button>
     <div v-if="folderId !== undefined" class="text">
-      Выбрана папка с ID = {{ folderId }}
+      {{ folderId ? `Выбрана папка с ID = ${folderId}` : "Папка не выбрана" }}
     </div>
   </div>
-  <ModalWindow v-if="isModalOpened" @select="select" title="Welcome to Your Vue App" />
+  <ModalWindow
+    v-if="isModalOpened"
+    @select="select"
+    title="Welcome to Your Vue App"
+  />
 </template>
 
 <script setup>
@@ -13,10 +17,10 @@ import { ref, provide } from "vue";
 import ModalWindow from "./components/ModalWindow.vue";
 
 const btnText = ref("Открыть");
-const folderId = ref('');
-const isModalOpened = ref(true);
+const folderId = ref("");
+const isModalOpened = ref(false);
 
-provide('isModalOpened', isModalOpened);
+provide("isModalOpened", isModalOpened);
 
 function openModal() {
   isModalOpened.value = true;
